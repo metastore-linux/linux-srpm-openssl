@@ -19,62 +19,62 @@
 
 %global _performance_build 1
 
-Name:               openssl
-Epoch:              1
-Version:            1.1.0g
-Release:            3%{?dist}
-Summary:            Utilities from the general purpose cryptography library with TLS implementation
-Group:              System Environment/Libraries
-License:            OpenSSL
-URL:                https://www.openssl.org/
+Name:                   openssl
+Epoch:                  1
+Version:                1.1.0g
+Release:                3%{?dist}
+Summary:                Utilities from the general purpose cryptography library with TLS implementation
+Group:                  System Environment/Libraries
+License:                OpenSSL
+URL:                    https://www.openssl.org/
 
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
-Source0:            openssl-%{version}-hobbled.tar.xz
-Source1:            hobble-openssl
-Source2:            Makefile.certificate
-Source6:            make-dummy-cert
-Source7:            renew-dummy-cert
-Source9:            opensslconf-new.h
-Source10:           opensslconf-new-warning.h
-Source11:           README.FIPS
-Source12:           ec_curve.c
-Source13:           ectest.c
+Source0:                openssl-%{version}-hobbled.tar.xz
+Source1:                hobble-openssl
+Source2:                Makefile.certificate
+Source6:                make-dummy-cert
+Source7:                renew-dummy-cert
+Source9:                opensslconf-new.h
+Source10:               opensslconf-new-warning.h
+Source11:               README.FIPS
+Source12:               ec_curve.c
+Source13:               ectest.c
 
 # Build changes
-Patch1:             openssl-1.1.0-build.patch
-Patch2:             openssl-1.1.0-defaults.patch
-Patch3:             openssl-1.1.0-no-html.patch
+Patch1:                 openssl-1.1.0-build.patch
+Patch2:                 openssl-1.1.0-defaults.patch
+Patch3:                 openssl-1.1.0-no-html.patch
 # Bug fixes
-Patch21:            openssl-1.1.0-issuer-hash.patch
-Patch22:            openssl-1.1.0-algo-doc.patch
-Patch23:            openssl-1.1.0-manfix.patch
+Patch21:                openssl-1.1.0-issuer-hash.patch
+Patch22:                openssl-1.1.0-algo-doc.patch
+Patch23:                openssl-1.1.0-manfix.patch
 # Functionality changes
-Patch31:            openssl-1.1.0-ca-dir.patch
-Patch32:            openssl-1.1.0-version-add-engines.patch
-Patch33:            openssl-1.1.0-apps-dgst.patch
-Patch34:            openssl-1.1.0-starttls-xmpp.patch
-Patch35:            openssl-1.1.0-chil-fixes.patch
-Patch36:            openssl-1.1.0-secure-getenv.patch
-Patch37:            openssl-1.1.0-ec-curves.patch
-Patch38:            openssl-1.1.0-no-weak-verify.patch
-Patch39:            openssl-1.1.0-cc-reqs.patch
-Patch40:            openssl-1.1.0-disable-ssl3.patch
-Patch41:            openssl-1.1.0-system-cipherlist.patch
-Patch42:            openssl-1.1.0-fips.patch
-Patch44:            openssl-1.1.0-bio-fd-preserve-nl.patch
-Patch45:            openssl-1.1.0-weak-ciphers.patch
+Patch31:                openssl-1.1.0-ca-dir.patch
+Patch32:                openssl-1.1.0-version-add-engines.patch
+Patch33:                openssl-1.1.0-apps-dgst.patch
+Patch34:                openssl-1.1.0-starttls-xmpp.patch
+Patch35:                openssl-1.1.0-chil-fixes.patch
+Patch36:                openssl-1.1.0-secure-getenv.patch
+Patch37:                openssl-1.1.0-ec-curves.patch
+Patch38:                openssl-1.1.0-no-weak-verify.patch
+Patch39:                openssl-1.1.0-cc-reqs.patch
+Patch40:                openssl-1.1.0-disable-ssl3.patch
+Patch41:                openssl-1.1.0-system-cipherlist.patch
+Patch42:                openssl-1.1.0-fips.patch
+Patch44:                openssl-1.1.0-bio-fd-preserve-nl.patch
+Patch45:                openssl-1.1.0-weak-ciphers.patch
 # Backported fixes including security fixes
 
-BuildRequires:      coreutils, krb5-devel, perl-interpreter, sed, zlib-devel, /usr/bin/cmp
-BuildRequires:      lksctp-tools-devel
-BuildRequires:      /usr/bin/rename
-BuildRequires:      /usr/bin/pod2man
-BuildRequires:      perl(Test::Harness), perl(Test::More), perl(Math::BigInt)
-BuildRequires:      perl(Module::Load::Conditional)
-Requires:           coreutils
-Requires:           %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+BuildRequires:          coreutils, krb5-devel, perl-interpreter, sed, zlib-devel, /usr/bin/cmp
+BuildRequires:          lksctp-tools-devel
+BuildRequires:          /usr/bin/rename
+BuildRequires:          /usr/bin/pod2man
+BuildRequires:          perl(Test::Harness), perl(Test::More), perl(Math::BigInt)
+BuildRequires:          perl(Module::Load::Conditional)
+Requires:               coreutils
+Requires:               %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description
 The OpenSSL toolkit provides support for secure communications between
@@ -87,14 +87,14 @@ protocols.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 %package libs
-Summary:            A general purpose cryptography library with TLS implementation
-Group:              System Environment/Libraries
-Requires:           ca-certificates >= 2008-5
-Requires:           crypto-policies
+Summary:                A general purpose cryptography library with TLS implementation
+Group:                  System Environment/Libraries
+Requires:               ca-certificates >= 2008-5
+Requires:               crypto-policies
 # Needed obsoletes due to the base/lib subpackage split
-Obsoletes:          openssl < 1:1.0.1-0.3.beta3
-Obsoletes:          openssl-fips < 1:1.0.1e-28
-Provides:           openssl-fips = %{epoch}:%{version}-%{release}
+Obsoletes:              openssl < 1:1.0.1-0.3.beta3
+Obsoletes:              openssl-fips < 1:1.0.1e-28
+Provides:               openssl-fips = %{epoch}:%{version}-%{release}
 
 %description libs
 OpenSSL is a toolkit for supporting cryptography. The openssl-libs
@@ -106,11 +106,11 @@ support cryptographic algorithms and protocols.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 %package devel
-Summary:            Files for development of applications which will use OpenSSL
-Group:              Development/Libraries
-Requires:           %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:           krb5-devel%{?_isa}, zlib-devel%{?_isa}
-Requires:           pkgconfig
+Summary:                Files for development of applications which will use OpenSSL
+Group:                  Development/Libraries
+Requires:               %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:               krb5-devel%{?_isa}, zlib-devel%{?_isa}
+Requires:               pkgconfig
 
 %description devel
 OpenSSL is a toolkit for supporting cryptography. The openssl-devel
@@ -122,9 +122,9 @@ support various cryptographic algorithms and protocols.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 %package static
-Summary:            Libraries for static linking of applications which will use OpenSSL
-Group:              Development/Libraries
-Requires:           %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
+Summary:                Libraries for static linking of applications which will use OpenSSL
+Group:                  Development/Libraries
+Requires:               %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description static
 OpenSSL is a toolkit for supporting cryptography. The openssl-static
@@ -137,10 +137,10 @@ protocols.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 %package perl
-Summary:            Perl scripts provided with OpenSSL
-Group:              Applications/Internet
-Requires:           perl-interpreter
-Requires:           %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+Summary:                Perl scripts provided with OpenSSL
+Group:                  Applications/Internet
+Requires:               perl-interpreter
+Requires:               %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description perl
 OpenSSL is a toolkit for supporting cryptography. The openssl-perl
@@ -191,7 +191,7 @@ sslarch=%{_os}-%{_target_cpu}
 %ifarch %ix86
 sslarch=linux-elf
 if ! echo %{_target} | grep -q i686 ; then
-	sslflags="no-asm 386"
+    sslflags="no-asm 386"
 fi
 %endif
 %ifarch x86_64
@@ -257,13 +257,13 @@ export HASHBANGPERL=/usr/bin/perl
 # usable on all platforms.  The Configure script already knows to use -fPIC and
 # RPM_OPT_FLAGS, so we can skip specifiying them here.
 ./Configure \
-	--prefix=%{_prefix} --openssldir=%{_sysconfdir}/pki/tls ${sslflags} \
-	--system-ciphers-file=%{_sysconfdir}/crypto-policies/back-ends/openssl.config \
-	zlib enable-camellia enable-seed enable-rfc3779 enable-sctp \
-	enable-cms enable-md2 enable-rc5 enable-ssl3 enable-ssl3-method \
-	enable-weak-ssl-ciphers \
-	no-mdc2 no-ec2m \
-	shared  ${sslarch} $RPM_OPT_FLAGS
+    --prefix=%{_prefix} --openssldir=%{_sysconfdir}/pki/tls ${sslflags} \
+    --system-ciphers-file=%{_sysconfdir}/crypto-policies/back-ends/openssl.config \
+    zlib enable-camellia enable-seed enable-rfc3779 enable-sctp \
+    enable-cms enable-md2 enable-rc5 enable-ssl3 enable-ssl3-method \
+    enable-weak-ssl-ciphers \
+    no-mdc2 no-ec2m \
+    shared  ${sslarch} $RPM_OPT_FLAGS
 
 util/mkdef.pl crypto update
 
@@ -313,9 +313,9 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_includedir},%{_libdir},%{_mandir},%{_li
 make DESTDIR=$RPM_BUILD_ROOT install
 rename so.%{soversion} so.%{version} $RPM_BUILD_ROOT%{_libdir}/*.so.%{soversion}
 for lib in $RPM_BUILD_ROOT%{_libdir}/*.so.%{version} ; do
-	chmod 755 ${lib}
-	ln -s -f `basename ${lib}` $RPM_BUILD_ROOT%{_libdir}/`basename ${lib} .%{version}`
-	ln -s -f `basename ${lib}` $RPM_BUILD_ROOT%{_libdir}/`basename ${lib} .%{version}`.%{soversion}
+    chmod 755 ${lib}
+    ln -s -f `basename ${lib}` $RPM_BUILD_ROOT%{_libdir}/`basename ${lib} .%{version}`
+    ln -s -f `basename ${lib}` $RPM_BUILD_ROOT%{_libdir}/`basename ${lib} .%{version}`.%{soversion}
 done
 
 # Install a makefile for generating keys and self-signed certs, and a script
@@ -331,25 +331,25 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/misc/tsget $RPM_BUILD_ROOT%{_bindir}
 
 # Make sure we actually include the headers we built against.
 for header in $RPM_BUILD_ROOT%{_includedir}/openssl/* ; do
-	if [ -f ${header} -a -f include/openssl/$(basename ${header}) ] ; then
-		install -m644 include/openssl/`basename ${header}` ${header}
-	fi
+    if [ -f ${header} -a -f include/openssl/$(basename ${header}) ] ; then
+        install -m644 include/openssl/`basename ${header}` ${header}
+    fi
 done
 
 # Rename man pages so that they don't conflict with other system man pages.
 pushd $RPM_BUILD_ROOT%{_mandir}
 ln -s -f config.5 man5/openssl.cnf.5
 for manpage in man*/* ; do
-	if [ -L ${manpage} ]; then
-		TARGET=`ls -l ${manpage} | awk '{ print $NF }'`
-		ln -snf ${TARGET}ssl ${manpage}ssl
-		rm -f ${manpage}
-	else
-		mv ${manpage} ${manpage}ssl
-	fi
+    if [ -L ${manpage} ]; then
+        TARGET=`ls -l ${manpage} | awk '{ print $NF }'`
+        ln -snf ${TARGET}ssl ${manpage}ssl
+        rm -f ${manpage}
+    else
+        mv ${manpage} ${manpage}ssl
+    fi
 done
 for conflict in passwd rand ; do
-	rename ${conflict} ssl${conflict} man*/${conflict}*
+    rename ${conflict} ssl${conflict} man*/${conflict}*
 done
 popd
 
@@ -382,11 +382,11 @@ basearch=sparc64
 # can have both a 32- and 64-bit version of the library, and they each need
 # their own correct-but-different versions of opensslconf.h to be usable.
 install -m644 %{SOURCE10} \
-	$RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf-${basearch}.h
+    $RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf-${basearch}.h
 cat $RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf.h >> \
-	$RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf-${basearch}.h
+    $RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf-${basearch}.h
 install -m644 %{SOURCE9} \
-	$RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf.h
+    $RPM_BUILD_ROOT/%{_prefix}/include/openssl/opensslconf.h
 %endif
 LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export LD_LIBRARY_PATH
